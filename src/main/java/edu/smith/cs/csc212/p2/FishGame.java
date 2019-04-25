@@ -26,22 +26,9 @@ public class FishGame {
 	 */
 	FishFood food;
 	/**
-	 * These are the missing fish!
-	 */
-	//List<Fish> missing;
-	
-	/**
-	 * These are fish we've found!
-	 */
-	//List<Fish> found;
-	/**
-	 * These are fish that have returned home.
-	 */
-	//List<Fish> atHome;
-	/**
 	 * Number of steps!
 	 */
-	int stepsTaken;
+	//int stepsTaken;
 	/**
 	 * Score!
 	 */
@@ -129,7 +116,7 @@ public class FishGame {
 	 */
 	public void step() {
 		// Keep track of how long the game has run.
-		this.stepsTaken += 1;
+		//this.stepsTaken += 1;
 				
 		// These are all the objects in the world in the same cell as the player.
 		List<WorldObject> playerOverlap = this.player.findSameCell();
@@ -210,7 +197,7 @@ public class FishGame {
 	 * @param x - the x-tile.
 	 * @param y - the y-tile.
 	 */
-	public void click(int x, int y) {
+	/*public void click(int x, int y) {
 		System.out.println("Clicked on: "+x+","+y+ " world.canSwim(player,...)="+world.canSwim(player, x, y));
 		List<WorldObject> atPoint = world.find(x, y);
 		// If there is a rock at the point where the user clicks, remove.
@@ -219,6 +206,6 @@ public class FishGame {
 				point.remove();
 			}
 		}
-	}
+	}*/
 	
 }
