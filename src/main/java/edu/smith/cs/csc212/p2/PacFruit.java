@@ -4,17 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
-public class FishFood extends WorldObject {
-
-	public FishFood(World world) {
+public class PacFruit extends FishFood {
+	public PacFruit (World world) {
 		super(world);
 	}
-
+	
 	@Override
 	public void draw(Graphics2D g) {
 		// Challenge 2: I don't care what it looks like.
-		g.setColor(Color.yellow);
-		g.fill(new Ellipse2D.Double(-0.2, -0.2, 0.4, 0.4));
+		g.setColor(Color.green);
+		g.fill(new Ellipse2D.Double(-0.4, -0.4, 0.8, 0.8));
 	}
 
 	@Override

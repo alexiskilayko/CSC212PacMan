@@ -62,6 +62,10 @@ public class FishGame {
 	 * This is the number of fish food that we want to generate.
 	 */
 	public static final int NUM_FOOD = 3;
+	/**
+	 * A reference to a random object, so we can randomize placement of objects in this world.
+	 */
+	private Random rand = ThreadLocalRandom.current();
 
 	
 	/**
@@ -84,10 +88,6 @@ public class FishGame {
 			world.insertRockRandomly();
 		}
 		
-		/*// Generate some falling rocks.
-		for (int i=0; i<NUM_ROCKS/2; i++) {
-			world.insertFallingRockRandomly();
-		}*/
 		
 		// (lab) Make the snail!
 		for (int i=0; i<NUM_SNAILS; i++) {
@@ -109,8 +109,18 @@ public class FishGame {
 		
 		// Generate pieces of fish food at random places.
 		for (int i=0; i<NUM_FOOD; i++) {
-			world.insertFoodRandomly();
+			world.insertFruitRandomly();
 		}
+		
+		// Generate some pellets.
+				for (int x=0; x<w; x++) {
+					for (int y=0; y<h; y++)
+						if(world.find(x, y).size()==0) {
+							FishFood pellet = new FishFood(world);
+							pellet.setPosition(x, y);
+							world.register(pellet);
+						}
+				}
 	}
 	
 	

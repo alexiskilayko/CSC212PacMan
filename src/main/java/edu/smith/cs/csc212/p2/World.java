@@ -236,10 +236,10 @@ public class World {
 	 * Insert food into the world at a random position
 	 * @return the food.
 	 */
-	public FishFood insertFoodRandomly() {
-		FishFood food = new FishFood(this);
-		insertRandomly(food);
-		return food;
+	public FishFood insertFruitRandomly() {
+		PacFruit fruit = new PacFruit(this);
+		insertRandomly(fruit);
+		return fruit;
 	}
 	
 	/**
