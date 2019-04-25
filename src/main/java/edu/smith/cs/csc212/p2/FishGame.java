@@ -40,11 +40,11 @@ public class FishGame {
 	/**
 	 * This is the number of snails that we want to generate.
 	 */
-	public static final int NUM_SNAILS = 2;
+	public static final int NUM_SNAILS = 3;
 	/**
 	 * This is the number of fish food that we want to generate.
 	 */
-	public static final int NUM_FOOD = 3;
+	public static final int NUM_FOOD = 4;
 	/**
 	 * A reference to a random object, so we can randomize placement of objects in this world.
 	 */
