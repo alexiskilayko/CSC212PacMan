@@ -22,10 +22,6 @@ public class FishGame {
 	 */
 	Fish player;
 	/**
-	 * The home location.
-	 */
-	FishHome home;
-	/**
 	 * This is the food that fish can eat.
 	 */
 	FishFood food;
@@ -75,10 +71,7 @@ public class FishGame {
 		missing = new ArrayList<Fish>();
 		found = new ArrayList<Fish>();
 		atHome = new ArrayList<Fish>(); // Instantiate a list of fish that have returned home.
-		
-		// Add a home!
-		home = world.insertFishHome();
-		
+				
 		// Generate some normal rocks.
 		for (int i=0; i<NUM_ROCKS/2; i++) {
 			world.insertRockRandomly();
@@ -97,7 +90,7 @@ public class FishGame {
 		// Make the player out of the 0th fish color.
 		player = new Fish(0, world);
 		// Start the player at "home".
-		player.setPosition(home.getX(), home.getY());
+		player.setPosition(13,20);
 		player.markAsPlayer();
 		world.register(player);
 		
@@ -163,7 +156,7 @@ public class FishGame {
 				score += 10;
 				world.remove(wo);
 			// If we find the fish home, return our following fish and remove them from world.
-			} else if (wo instanceof FishHome) {
+			} /* else if (wo instanceof FishHome) {
 				for (Fish f : found) {
 					atHome.add(f);
 				}
@@ -171,7 +164,7 @@ public class FishGame {
 					found.remove(f);
 					world.remove(f);
 				} 
-			}
+			}*/
 		} 
 		
 		// If wandering fish find the fish food, remove food from world. Score does not increase.

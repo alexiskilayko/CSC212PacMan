@@ -216,11 +216,11 @@ public class World {
 	 * Insert a fish home into the world at a random position.
 	 * @return the fish home.
 	 */
-	public FishHome insertFishHome() {
+	/*public FishHome insertFishHome() {
 		FishHome home = new FishHome(this);
 		insertRandomly(home);
 		return home;
-	}
+	}*/
 	
 	/**
 	 * Insert a new Snail at random into the world.
