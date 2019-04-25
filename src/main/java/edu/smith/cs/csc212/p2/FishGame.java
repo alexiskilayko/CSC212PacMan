@@ -22,30 +22,13 @@ public class FishGame {
 	 */
 	Fish player;
 	/**
-	 * The home location.
-	 */
-	FishHome home;
-	/**
 	 * This is the food that fish can eat.
 	 */
 	FishFood food;
 	/**
-	 * These are the missing fish!
-	 */
-	List<Fish> missing;
-	
-	/**
-	 * These are fish we've found!
-	 */
-	List<Fish> found;
-	/**
-	 * These are fish that have returned home.
-	 */
-	List<Fish> atHome;
-	/**
 	 * Number of steps!
 	 */
-	int stepsTaken;
+	//int stepsTaken;
 	/**
 	 * Score!
 	 */
@@ -76,13 +59,10 @@ public class FishGame {
 	public FishGame(int w, int h) {
 		world = new World(w, h);
 		
-		missing = new ArrayList<Fish>();
+		/*missing = new ArrayList<Fish>();
 		found = new ArrayList<Fish>();
-		atHome = new ArrayList<Fish>(); // Instantiate a list of fish that have returned home.
-		
-		// Add a home!
-		home = world.insertFishHome();
-		
+		atHome = new ArrayList<Fish>(); // Instantiate a list of fish that have returned home.*/
+				
 		// Generate some normal rocks.
 		for (int i=0; i<NUM_ROCKS/2; i++) {
 			world.insertRockRandomly();
@@ -97,15 +77,15 @@ public class FishGame {
 		// Make the player out of the 0th fish color.
 		player = new Fish(0, world);
 		// Start the player at "home".
-		player.setPosition(home.getX(), home.getY());
+		player.setPosition(13,20);
 		player.markAsPlayer();
 		world.register(player);
 		
 		// Generate fish of all the colors but the first into the "missing" List.
-		for (int ft = 1; ft < Fish.COLORS.length; ft++) {
+		/*for (int ft = 1; ft < Fish.COLORS.length; ft++) {
 			Fish friend = world.insertFishRandomly(ft);
 			missing.add(friend);
-		}
+		}*/
 		
 		// Generate pieces of fish food at random places.
 		for (int i=0; i<NUM_FOOD; i++) {
@@ -128,9 +108,9 @@ public class FishGame {
 	 * How we tell if the game is over: if missingFishLeft() == 0.
 	 * @return the size of the missing list.
 	 */
-	public int missingFishLeft() {
+	/*public int missingFishLeft() {
 		return missing.size();
-	}
+	}*/
 	
 	/**
 	 * This method is how the PlayFish app tells whether we're done.
@@ -138,7 +118,7 @@ public class FishGame {
 	 */
 	public boolean gameOver() {
 		// Game over only if there are no fish in both the missing and found lists, i.e. all fish are home.
-		return missing.isEmpty() && found.isEmpty();
+		return false;
 	}
 
 	/**
@@ -146,7 +126,7 @@ public class FishGame {
 	 */
 	public void step() {
 		// Keep track of how long the game has run.
-		this.stepsTaken += 1;
+		//this.stepsTaken += 1;
 				
 		// These are all the objects in the world in the same cell as the player.
 		List<WorldObject> playerOverlap = this.player.findSameCell();
@@ -157,7 +137,7 @@ public class FishGame {
 		for (WorldObject wo : playerOverlap) {
 			// If we find a fish...
 			// A fish is missing if it's in our missing list.
-			if (missing.contains(wo)) {
+			/*if (missing.contains(wo)) {
 				// Remove this fish from the missing list.
 				missing.remove(wo);
 				
@@ -169,11 +149,11 @@ public class FishGame {
 				// Increase score when you find a fish!
 				score += fish.points;
 			// If we find food, score increases and remove from world.
-			} else if (wo instanceof FishFood) {
+			}*/ if (wo instanceof FishFood) {
 				score += 10;
 				world.remove(wo);
 			// If we find the fish home, return our following fish and remove them from world.
-			} else if (wo instanceof FishHome) {
+			} /* else if (wo instanceof FishHome) {
 				for (Fish f : found) {
 					atHome.add(f);
 				}
@@ -181,11 +161,11 @@ public class FishGame {
 					found.remove(f);
 					world.remove(f);
 				} 
-			}
+			}*/
 		} 
 		
 		// If wandering fish find the fish food, remove food from world. Score does not increase.
-		for (Fish f : missing) {
+		/*for (Fish f : missing) {
 			// Find the objects that overlap with wandering fish.
 			List<WorldObject> fishOverlap = f.findSameCell();
 			// Exclude the player fish.
@@ -195,12 +175,12 @@ public class FishGame {
 					world.remove(wo);
 				}
 			}
-		}
+		}*/
 									 
 		// Make sure missing fish *do* something.
-		wanderMissingFish();
+		/*wanderMissingFish();
 		// When fish get added to "found" they will follow the player around.
-		World.objectsFollow(player, found);
+		World.objectsFollow(player, found);*/
 		// Step any world-objects that run themselves.
 		world.stepAll();
 	}
@@ -208,7 +188,7 @@ public class FishGame {
 	/**
 	 * Call moveRandomly() on all of the missing fish to make them seem alive.
 	 */
-	private void wanderMissingFish() {
+	/*private void wanderMissingFish() {
 		Random rand = ThreadLocalRandom.current();
 		for (Fish lost : missing) {
 			// 30% of the time, lost fish move randomly.
@@ -220,14 +200,14 @@ public class FishGame {
 			}
 		}
 		
-	}
+	}*/
 
 	/**
 	 * This gets a click on the grid. We want it to destroy rocks that ruin the game.
 	 * @param x - the x-tile.
 	 * @param y - the y-tile.
 	 */
-	public void click(int x, int y) {
+	/*public void click(int x, int y) {
 		System.out.println("Clicked on: "+x+","+y+ " world.canSwim(player,...)="+world.canSwim(player, x, y));
 		List<WorldObject> atPoint = world.find(x, y);
 		// If there is a rock at the point where the user clicks, remove.
@@ -236,6 +216,6 @@ public class FishGame {
 				point.remove();
 			}
 		}
-	}
+	}*/
 	
 }

@@ -129,11 +129,11 @@ public class PlayFish extends GFX {
 			forWo.dispose();
 		}
 		
-		IntPoint hover = mouseToGame(this.getMouseLocation());
+		/*IntPoint hover = mouseToGame(this.getMouseLocation());
 		if (hover != null) {
 			g.setColor(new Color(0,1,0,0.5f));
 			g.fillRect(hover.x * tw, hover.y * th, tw, th);
-		}
+		}*/
 	}
 	
 	/**
@@ -171,8 +171,8 @@ public class PlayFish extends GFX {
 		
 		// Update the text in the TextBox.
 		this.gameState.setString(
-				"Step #: " + game.stepsTaken + 
-				" ... Fish Left: " + game.missingFishLeft() +
+				/*"Step #: " + game.stepsTaken + 
+				" ... Fish Left: " + game.missingFishLeft() +*/
 				" ... Score: "+ game.score);
 
 		// Read the state of the keyboard:
@@ -198,9 +198,9 @@ public class PlayFish extends GFX {
 		
 		// Only advance the game if the player presses something!
 		if (skip || moved || click != null) {
-			if (click != null) {
+			/*if (click != null) {
 				this.game.click(click.x, click.y);
-			}
+			}*/
 			// Update game logic!
 			this.game.step();
 			// Update message at the top!
