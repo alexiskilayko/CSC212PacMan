@@ -2,7 +2,7 @@ package edu.smith.cs.csc212.p2;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * It would be awful nice to have multi-colored rocks at random.
@@ -36,7 +36,7 @@ public class Rock extends WorldObject {
 		// use the right color in here...
 		Color color = Color.blue;
 		g.setColor(color);
-		RoundRectangle2D rock = new RoundRectangle2D.Double(-.5,-.5,1,1,0.3,0.3);
+		Rectangle2D rock = new Rectangle2D.Double(-.5,-.5,1,1);
 		g.fill(rock);
 	}
 
