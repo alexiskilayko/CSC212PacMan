@@ -36,7 +36,7 @@ public class FishGame {
 	/**
 	 * This is the number of rocks that we want to generate.
 	 */
-	public static final int NUM_ROCKS = 20;
+	//public static final int NUM_ROCKS = 20;
 	/**
 	 * This is the number of snails that we want to generate.
 	 */
@@ -60,9 +60,9 @@ public class FishGame {
 		atHome = new ArrayList<Fish>(); // Instantiate a list of fish that have returned home.*/
 				
 		// Generate some normal rocks.
-		for (int i=0; i<NUM_ROCKS/2; i++) {
+		//for (int i=0; i<NUM_ROCKS/2; i++) {
 			world.insertRockRandomly();
-		}
+		//}
 		
 		/*// Generate some falling rocks.
 		for (int i=0; i<NUM_ROCKS/2; i++) {
