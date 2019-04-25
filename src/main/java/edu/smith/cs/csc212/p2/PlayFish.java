@@ -23,7 +23,7 @@ public class PlayFish extends GFX {
 	/**
 	 * Game size (logical).
 	 */
-	public static int LOGICAL_GRID_SIZE = 20;
+	public static int LOGICAL_GRID_SIZE = 27;
 	/**
 	 * The words appear in the top part of the screen.
 	 */
@@ -76,11 +76,11 @@ public class PlayFish extends GFX {
 	/**
 	 * Picking a nicer blue than Color.blue.
 	 */
-	public static Color OCEAN_COLOR = new Color(0, 100, 255);
+	public static Color OCEAN_COLOR = Color.black;
 	/**
 	 * Making a darker blue for the grid.
 	 */
-	public static Color GRID_COLOR = new Color(0, 100, 225);
+	public static Color GRID_COLOR = Color.black;
 
 	/**
 	 * Draw the game state.
@@ -88,7 +88,7 @@ public class PlayFish extends GFX {
 	@Override
 	public void draw(Graphics2D g) {
 		// Background of window is dark-dark green.
-		g.setColor(Color.green.darker().darker());
+		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		// Get a a reference to the game world to draw.

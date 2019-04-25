@@ -144,10 +144,51 @@ public class World {
 	 * Insert a new Rock into the world at random.
 	 * @return the Rock.
 	 */
-	public Rock insertRockRandomly() {
-		Rock r = new Rock(this);
-		insertRandomly(r);
-		return r;
+	public void insertRockRandomly() {
+		String[] mapData = {
+				"XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				"X............XX............X",
+				"X.XXXX.XXXXX.XX.XXXXX.XXXX.X",
+				"X.XXXX.XXXXX.XX.XXXXX.XXXX.X",
+				"X.XXXX.XXXXX.XX.XXXXX.XXXX.X",
+				"X..........................X",
+				"X.XXXX.XX.XXXXXXXX.XX.XXXX.X",
+				"X.XXXX.XX.XXXXXXXX.XX.XXXX.X",
+				"X......XX....XX....XX......X",
+				"XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
+				"XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
+				"XXXXXX.XX..........XX.XXXXXX",
+				"XXXXXX.XX.XXXXXXXX.XX.XXXXXX",
+				"..........XXXXXXXX..........",
+				"XXXXXX.XX.XXXXXXXX.XX.XXXXXX",
+				"XXXXXX.XX..........XX.XXXXXX",
+				"XXXXXX.XX.XXXXXXXX.XX.XXXXXX",
+				"X............XX............X",
+				"X.XXXX.XXXXX.XX.XXXXX.XXXX.X",
+				"X.XXXX.XXXXX.XX.XXXXX.XXXX.X",
+				"X...XX................XX...X",
+				"XXX.XX.XX.XXXXXXXX.XX.XX.XXX",
+				"XXX.XX.XX.XXXXXXXX.XX.XX.XXX",
+				"X......XX....XX....XX......X",
+				"X.XXXXXXXXXX.XX.XXXXXXXXXX.X",
+				"X.XXXXXXXXXX.XX.XXXXXXXXXX.X",
+				"X..........................X",
+				"XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+				};
+		for (int y = 0; y < mapData.length; y++) {
+			char[] row = mapData[y].toCharArray();
+			for (int x = 0; x < row.length; x++) {
+				WorldObject wo = null;
+				if (row[x] == 'X') {
+					wo = new Rock(this);
+				} 
+				if (wo == null) {
+					continue;
+				}
+				wo.setPosition(x, y);
+				this.register(wo);
+			}
+		}
 	}
 
 	/**
