@@ -22,7 +22,6 @@ public class Fish extends WorldObject {
 			Color.green,
 			Color.green,
 			Color.yellow,
-			Color.yellow,
 			// Add more colors.
 			// Maybe make a special fish that is more points?
 	};
