@@ -13,8 +13,8 @@ public class FishFood extends WorldObject {
 	@Override
 	public void draw(Graphics2D g) {
 		// Challenge 2: I don't care what it looks like.
-		g.setColor(Color.yellow);
-		g.fill(new Ellipse2D.Double(-0.2, -0.2, 0.4, 0.4));
+		g.setColor(Color.white);
+		g.fill(new Ellipse2D.Double(-0.1, -0.1, 0.2, 0.2));
 	}
 
 	@Override
