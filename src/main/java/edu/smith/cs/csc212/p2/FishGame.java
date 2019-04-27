@@ -199,7 +199,6 @@ public class FishGame {
 				lost.moveRandomly();
 			}
 		}
-		
 	}*/
 
 	/**
