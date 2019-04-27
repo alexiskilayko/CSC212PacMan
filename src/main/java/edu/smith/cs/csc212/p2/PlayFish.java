@@ -183,28 +183,32 @@ public class PlayFish extends GFX {
 		boolean skip = this.processKey(KeyEvent.VK_SPACE);
 
 		// Move the player if we can:
-		boolean moved = false;
+		//boolean moved = false;
+		//this.game.player.moveRight();
 		if (up) {
-			moved = this.game.player.moveUp();
+			this.game.player.moveUp();
 		} else if (down) {
-			moved = this.game.player.moveDown();
+			this.game.player.moveDown();
 		} else if (left) {
-			moved = this.game.player.moveLeft();
+			this.game.player.moveLeft();
 		} else if (right) {
-			moved = this.game.player.moveRight();
+			this.game.player.moveRight();
 		}
 		
 		IntPoint click = mouseToGame(this.processClick());
 		
 		// Only advance the game if the player presses something!
-		if (skip || moved || click != null) {
+		//if (skip || moved || click != null) {
 			/*if (click != null) {
 				this.game.click(click.x, click.y);
 			}*/
 			// Update game logic!
+		//boolean autoMove = true;
+		//while (autoMove) {
 			this.game.step();
+		//}
 			// Update message at the top!
-		}
+		
 	}
 
 	/**

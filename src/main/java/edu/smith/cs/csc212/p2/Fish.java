@@ -38,6 +38,8 @@ public class Fish extends WorldObject {
 	 * Whether or not this is the player;
 	 */	
 	boolean player = false;
+	
+	boolean invincible = false;
 	/**
 	 * Whether or not the fish gets scared fast.
 	 */
@@ -97,7 +99,7 @@ public class Fish extends WorldObject {
 		if (dt > 100) {
 			dt = 0;
 		}
-		Shape circle = new Ellipse2D.Double(-0.6, -0.6, 1.2, 1.2);
+		Shape circle = new Ellipse2D.Double(-0.5, -0.5, 1.0, 1.0);
 		/*Shape body = new Ellipse2D.Double(-.40, -.2, .8, .4);
 		Shape tail = new Ellipse2D.Double(+.2, -.3, .2, .6);
 		Shape eye = new Ellipse2D.Double(-.25, -.1, .1, .1);*/
@@ -113,6 +115,11 @@ public class Fish extends WorldObject {
 		
 		if (this.player) {
 			flipped.setColor(Color.yellow);
+			flipped.fill(circle);
+		}
+		
+		if (this.player && this.invincible) {
+			flipped.setColor(Color.blue);
 			flipped.fill(circle);
 		}
 

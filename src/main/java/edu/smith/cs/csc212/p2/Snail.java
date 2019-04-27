@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
+import java.util.Random;
 
 /**
  * A Snail moves left to right and bumps into things!
@@ -32,6 +34,8 @@ public class Snail extends WorldObject {
 	 * Is the snail going to the left?
 	 */
 	public boolean movingLeft = false;
+	
+    Random random = new Random();
 	
 	/**
 	 * Create a new Snail in a part of this world.
@@ -102,7 +106,21 @@ public class Snail extends WorldObject {
 	 */
 	@Override
 	public void step() {
-		eyesOpen = !eyesOpen;
+		int rand = random.nextInt(4);
+		
+		/*int x = this.getX();
+		int y = this.getY();*/
+		
+		if (rand == 0) {
+			this.moveUp();
+		} else if (rand == 1) {
+			this.moveRight();
+		} else if (rand == 2) {
+			this.moveDown();
+		} else if (rand == 3) {
+			this.moveLeft();
+		}
+		/*eyesOpen = !eyesOpen;
 		if (movingLeft) {
 			if (!moveLeft()) {
 				movingLeft = false;
@@ -111,7 +129,8 @@ public class Snail extends WorldObject {
 			if (!moveRight()) {
 				movingLeft = true;
 			}
-		}
+		}*/
+		
 	}
 
 }

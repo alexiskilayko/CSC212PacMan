@@ -43,15 +43,15 @@ public class FishGame {
 	/**
 	 * This is the number of lives PacMan has left
 	 */
-	public static final int NUM_LIVES = 3;
+	int numLives = 3;
 	/**
 	 * This is the number of snails that we want to generate.
 	 */
-	public static final int NUM_SNAILS = 3;
+	int numGhosts = 4;
 	/**
 	 * This is the number of fish food that we want to generate.
 	 */
-	public static final int NUM_FOOD = 4;
+	int numPowerPellets = 4;
 	/**
 	 * A reference to a random object, so we can randomize placement of objects in this world.
 	 */
@@ -77,7 +77,7 @@ public class FishGame {
 		
 		
 		// (lab) Make the snail!
-		for (int i=0; i<NUM_SNAILS; i++) {
+		for (int i=0; i<numGhosts; i++) {
 			world.insertSnailRandomly();
 		}
 				
@@ -107,7 +107,7 @@ public class FishGame {
 		}*/
 		
 		// Generate pieces of fish food at random places.
-		for (int i=0; i<NUM_FOOD; i++) {
+		for (int i=0; i<numPowerPellets; i++) {
 			world.insertFruitRandomly();
 		}
 		
@@ -140,7 +140,7 @@ public class FishGame {
 	 */
 	public boolean gameOver() {
 		// Game over only if there are no fish in both the missing and found lists, i.e. all fish are home.
-		if (NUM_LIVES<1 || numPellets<1) {
+		if (numLives<1 || numPellets<1) {
 			return true; 
 		}
 		else {
@@ -162,6 +162,28 @@ public class FishGame {
 		
 		// If we find an object...
 		for (WorldObject wo : playerOverlap) {
+			if (wo instanceof FishFood) {
+				score += 10;
+				numPellets--;
+				world.remove(wo);
+			}
+			if (wo instanceof PacFruit) {
+				//numPowerPellets--;
+				this.player.invincible = true;
+				/*long time = System.nanoTime();
+				if (time == 5) {
+					this.player.invincible = false;
+				}*/
+			}
+			if (wo instanceof Snail) {
+				if (!this.player.invincible) {
+					numLives--;
+				}
+				if (this.player.invincible) {
+					world.remove(wo);
+					score += 100;
+				}
+			}
 			// If we find a fish...
 			// A fish is missing if it's in our missing list.
 			/*if (missing.contains(wo)) {
@@ -176,12 +198,9 @@ public class FishGame {
 				// Increase score when you find a fish!
 				score += fish.points;
 			// If we find food, score increases and remove from world.
-			}*/ if (wo instanceof FishFood) {
-				score += 10;
-				numPellets--;
-				world.remove(wo);
+			}*/ 
 			// If we find the fish home, return our following fish and remove them from world.
-			} /* else if (wo instanceof FishHome) {
+			/* else if (wo instanceof FishHome) {
 				for (Fish f : found) {
 					atHome.add(f);
 				}
