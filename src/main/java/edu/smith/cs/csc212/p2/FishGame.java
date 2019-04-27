@@ -30,13 +30,20 @@ public class FishGame {
 	 */
 	//int stepsTaken;
 	/**
+	 * Number of pellets left
+	 */
+	int numPellets;
+	/**
 	 * Score!
 	 */
 	int score;
-	/**
+	/*/**
 	 * This is the number of rocks that we want to generate.
+	public static final int NUM_ROCKS = 20;*/
+	/**
+	 * This is the number of lives PacMan has left
 	 */
-	//public static final int NUM_ROCKS = 20;
+	public static final int NUM_LIVES = 3;
 	/**
 	 * This is the number of snails that we want to generate.
 	 */
@@ -87,17 +94,32 @@ public class FishGame {
 			missing.add(friend);
 		}*/
 		
+		/*
+		 * //Check whether PacMan is dead
+		while (this.gameOver()!=true) {
+			if (player.isDead()) {
+				NUM_LIVES -= 1;
+				continue;
+			}
+			else if (!player.isDead()) {
+				continue;
+			}
+		}*/
+		
 		// Generate pieces of fish food at random places.
 		for (int i=0; i<NUM_FOOD; i++) {
 			world.insertFruitRandomly();
 		}
 		
 		// Generate some pellets.
+		//Keep track of how many there are.
+		numPellets = 0;
 				for (int x=0; x<w; x++) {
 					for (int y=0; y<h; y++)
 						if(world.find(x, y).size()==0) {
 							FishFood pellet = new FishFood(world);
 							pellet.setPosition(x, y);
+							numPellets++;
 							world.register(pellet);
 						}
 				}
@@ -118,7 +140,12 @@ public class FishGame {
 	 */
 	public boolean gameOver() {
 		// Game over only if there are no fish in both the missing and found lists, i.e. all fish are home.
-		return false;
+		if (NUM_LIVES<1 || numPellets<1) {
+			return true; 
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -151,6 +178,7 @@ public class FishGame {
 			// If we find food, score increases and remove from world.
 			}*/ if (wo instanceof FishFood) {
 				score += 10;
+				numPellets--;
 				world.remove(wo);
 			// If we find the fish home, return our following fish and remove them from world.
 			} /* else if (wo instanceof FishHome) {
