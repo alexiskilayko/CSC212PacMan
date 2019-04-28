@@ -267,7 +267,7 @@ public class World {
 				return false;
 			}
 			if ((it instanceof Fish) && (whoIsAsking.isPlayer() == false)) {
-				return false;
+				return true;
 			}
 			
 			// The other fish shouldn't step "on" the player, the player should step on the other fish.
