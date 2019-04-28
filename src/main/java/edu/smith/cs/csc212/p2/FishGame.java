@@ -179,7 +179,7 @@ public class FishGame {
 				if (!this.player.invincible) {
 					numLives--;
 				}
-				if (this.player.invincible) {
+				else if (this.player.invincible) {
 					world.remove(wo);
 					score += 100;
 				}

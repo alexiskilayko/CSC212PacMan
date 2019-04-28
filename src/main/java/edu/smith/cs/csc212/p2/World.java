@@ -274,7 +274,7 @@ public class World {
 			if (it instanceof Snail) {
 				// This if-statement doesn't let anyone step on the Snail.
 				// The Snail(s) are not gonna take it.
-				return false;
+				return true;
 			}
 		}
 		
