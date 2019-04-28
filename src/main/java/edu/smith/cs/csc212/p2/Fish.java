@@ -119,13 +119,12 @@ public class Fish extends WorldObject {
 			flipped.scale(-1, 1);
 		}
 		
-		if (this.player) {
-			flipped.setColor(Color.yellow);
-			flipped.fill(circle);
-		}
-		
 		if (this.player && this.invincible) {
 			flipped.setColor(Color.blue);
+			flipped.fill(circle);
+		}
+		else {
+			flipped.setColor(Color.yellow);
 			flipped.fill(circle);
 		}
 

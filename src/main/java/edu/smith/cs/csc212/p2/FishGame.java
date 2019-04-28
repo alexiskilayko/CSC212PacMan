@@ -22,6 +22,10 @@ public class FishGame {
 	 */
 	Fish player;
 	/**
+	 * PacMan's other lives
+	 */
+	List<Fish> lives;
+	/**
 	 * This is the food that fish can eat.
 	 */
 	FishFood food;
@@ -80,7 +84,7 @@ public class FishGame {
 		for (int i=0; i<numGhosts; i++) {
 			world.insertSnailRandomly();
 		}
-				
+		
 		// Make the player out of the 0th fish color.
 		player = new Fish(0, world);
 		// Start the player at "home".
@@ -123,6 +127,14 @@ public class FishGame {
 							world.register(pellet);
 						}
 				}
+		 //Make the number of lives
+		lives = new ArrayList<>();
+		 for (int i=0;i<numLives;i++) {
+			Fish life = new Fish(0,world);
+			life.setPosition(i,0);
+			lives.add(life);
+			world.register(life);
+		}
 	}
 	
 	
@@ -140,7 +152,7 @@ public class FishGame {
 	 */
 	public boolean gameOver() {
 		// Game over only if there are no fish in both the missing and found lists, i.e. all fish are home.
-		if (numLives<1 || numPellets<1) {
+		if (lives.isEmpty() || numPellets + numPowerPellets<1) {
 			return true; 
 		}
 		else {
@@ -177,7 +189,7 @@ public class FishGame {
 			}
 			if (wo instanceof Snail) {
 				if (!this.player.invincible) {
-					numLives--;
+					world.remove(lives.remove(0));
 				}
 				else if (this.player.invincible) {
 					world.remove(wo);

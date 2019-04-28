@@ -135,8 +135,8 @@ public abstract class WorldObject {
 	 * 
 	 * @return true if this is a rock.
 	 */
-	public boolean isRock() {
-		return this instanceof Rock;
+	public boolean isPacFruit() {
+		return this instanceof PacFruit;
 	}
 	
 
