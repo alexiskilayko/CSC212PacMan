@@ -141,7 +141,7 @@ public class FishGame {
 				if (this.player.x == world.getWidth()-1) {
 					this.player.x = 1;
 				} else if (this.player.x == 0) {
-					this.player.x = world.getWidth()-1;
+					this.player.x = world.getWidth()-2;
 				}
 			}
 			if (wo instanceof PacFruit) {
@@ -150,6 +150,7 @@ public class FishGame {
 			if (wo instanceof Snail) {
 				if (!this.player.isInvincible()) {
 					world.remove(lives.remove(0));
+					player.setPosition(13,20);
 				}
 				else if (this.player.isInvincible()) {
 					world.remove(wo);
@@ -165,15 +166,16 @@ public class FishGame {
 		for (Snail ghost : livingGhosts) {
 			ghost.frozen = this.player.isInvincible();
 		}
-		
 		// Keep track of how long the game has run.
 		this.stepsTaken += 1;
-		
 		// check after player moves if player dies
-		checkPlayer();
+		//checkPlayer();
 		// let ghosts move
-		world.stepAll();
-		// check after ghosts move if player dies
 		checkPlayer();
+		this.player.step();
+		checkPlayer();
+		world.stepAll();
+		checkPlayer();
+		// check after ghosts move if player dies
 	}
 }

@@ -116,25 +116,7 @@ public class PlayFish extends GFX {
 			forWo.dispose();
 		}
 	}
-	/**
-	 * Convert Mouse coordinates to Grid coordinates.
-	 * @param mouse maybe a Mouse location (or null).
-	 * @return null or the grid coordinates of the Mouse.
-	 */
-	public IntPoint mouseToGame(IntPoint mouse) {
-		if (mouse == null) return null;
-		int x = mouse.x - BORDER;
-		int y = mouse.y - BORDER - TOP_PART;
-		if (x > 0 && x <= VISUAL_GRID_SIZE &&
-				y > 0 && y <= VISUAL_GRID_SIZE) {
-			int tx = x / getTileW();
-			int ty = y / getTileH();
-			return new IntPoint(tx, ty);
-		}
-		return null;
-	}
-	
-	int delay = 10;
+	int delay = 6;
 	/**
 	 * We separate our "PlayFish" game logic update here.
 	 * @param secondsSinceLastUpdate - my GFX code can tell us how long it is between each update, but we don't actually care here.
@@ -164,7 +146,7 @@ public class PlayFish extends GFX {
 		boolean left = this.processKey(KeyEvent.VK_A) || this.processKey(KeyEvent.VK_LEFT);
 		boolean right = this.processKey(KeyEvent.VK_D) || this.processKey(KeyEvent.VK_RIGHT);
 		boolean skip = this.processKey(KeyEvent.VK_SPACE);
-
+		
 		if (up) {
 			this.game.player.movingUp = true;
 			this.game.player.movingDown = false;
@@ -191,7 +173,7 @@ public class PlayFish extends GFX {
 		
 		if (delay == 0) {		
 			this.game.step();
-			delay = 8;
+			delay = 6;
 		}
 	}
 	/**

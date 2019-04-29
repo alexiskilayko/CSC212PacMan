@@ -31,7 +31,7 @@ public class Fish extends WorldObject {
 	private int invincible = 0;
 	
 	boolean mouthOpen = true;
-	
+		
 	boolean movingLeft = false;
 	
 	boolean movingRight = false;
@@ -113,6 +113,6 @@ public class Fish extends WorldObject {
 		return invincible > 0;
 	}
 	void setInvincible() {
-		this.invincible = 20;
+		this.invincible = 30;
 	}
 }

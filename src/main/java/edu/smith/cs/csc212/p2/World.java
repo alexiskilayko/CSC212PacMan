@@ -265,28 +265,9 @@ public class World {
 	 */
 	public void stepAll() {
 		for (WorldObject it : this.items) {
-			it.step();
-		}
-	}
-	
-	/**
-	 * This signature is a little scary, but we need to support any subclass of WorldObject.
-	 * We don't know followers is a {@code List<Fish>} but it should work no matter what!
-	 * @param target the leader.
-	 * @param followers a set of objects to follow the leader.
-	 */
-	public static void objectsFollow(WorldObject target, List<? extends WorldObject> followers) {
-		// Comment this method!
-		// recentPositions is the previous tiles that the player has passed through before its current position.
-		// followers is the list of fish that the player has found.
-		// target is the player fish.
-		// past = putWhere[i+1] so that the follower fish are added behind the player fish. 
-		// putWhere[i] would put the first follower fish on top of the player.
-		List<IntPoint> putWhere = new ArrayList<>(target.recentPositions);
-		for (int i=0; i<followers.size(); i++) {
-			IntPoint past = putWhere.get(i+1);
-			followers.get(i).setPosition(past.x, past.y);
-			System.out.println(followers);
+			if (!(it instanceof Fish)) {
+				it.step();
+			}
 		}
 	}
 }
