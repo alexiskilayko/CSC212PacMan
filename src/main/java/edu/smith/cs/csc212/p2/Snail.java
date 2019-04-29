@@ -28,6 +28,8 @@ public class Snail extends WorldObject {
 	* This is an index into the {@link #COLORS} array.
 	*/
 	int color;
+	
+	int direction;
 	/**
 	 * This is pupil of the snail color.
 	 */
@@ -41,6 +43,12 @@ public class Snail extends WorldObject {
 	 */
 	public boolean movingLeft = false;
 	
+	public boolean movingRight = false;
+	
+	public boolean movingUp = false;
+	
+	public boolean movingDown = false;
+	
 	public boolean frozen = false;
 	
     Random random = new Random();
@@ -52,6 +60,7 @@ public class Snail extends WorldObject {
 	public Snail(int color, World world) {
 		super(world);
 		this.color = color;
+		this.direction = random.nextInt(3);
 	}
 
 	/**
@@ -116,8 +125,32 @@ public class Snail extends WorldObject {
 	 * Alternate eyes open/closed as it moves.
 	 */
 	@Override
-	public void step() {
-		//this.moveRandomly();
+	public void step() {		
+		if (direction == 0) {
+			movingLeft = true;
+			if (!moveLeft()) {
+				movingLeft = false;
+				direction = random.nextInt(3);
+			}
+		} else if (direction == 1) {
+			movingRight = true;
+			if (!moveRight()) {
+				movingRight = false;
+				direction = random.nextInt(3);
+			}
+		} else if (direction == 2) {
+			movingUp = true;
+			if (!moveUp()) {
+				movingUp = false;
+				direction = random.nextInt(3);
+			}
+		} else if (direction == 3) {
+			movingDown = true;
+			if (!moveDown()) {
+				movingDown = false;
+				direction = random.nextInt(3);
+			}
+		}
 	}
 
 }

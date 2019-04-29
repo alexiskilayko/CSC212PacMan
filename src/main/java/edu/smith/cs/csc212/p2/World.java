@@ -196,11 +196,6 @@ public class World {
 	 * @param color - the color of the fish.
 	 * @return the new fish itself.
 	 */
-	public Fish insertFishRandomly(int color) {
-		Fish f = new Fish(color, this);
-		insertRandomly(f);
-		return f;
-	}
 	
 	/**
 	 * Insert a new Snail at random into the world.

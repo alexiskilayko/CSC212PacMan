@@ -56,7 +56,6 @@ public class PlayFish extends GFX {
 		gameState.setFontSize(TOP_PART / 3.0);
 		topRect = new Rectangle2D.Double(0, 0, getWidth(), TOP_PART);
 	}
-
 	/**
 	 * How big is a tile?
 	 * @return this returns the tile width.
@@ -64,7 +63,6 @@ public class PlayFish extends GFX {
 	private int getTileW() {
 		return VISUAL_GRID_SIZE / game.world.getWidth();
 	}
-
 	/**
 	 * How big is a tile?
 	 * @return this returns the tile height.
@@ -72,16 +70,6 @@ public class PlayFish extends GFX {
 	private int getTileH() {
 		return VISUAL_GRID_SIZE / game.world.getWidth();
 	}
-
-	/**
-	 * Picking a nicer blue than Color.blue.
-	 */
-	public static Color OCEAN_COLOR = Color.black;
-	/**
-	 * Making a darker blue for the grid.
-	 */
-	public static Color GRID_COLOR = Color.black;
-
 	/**
 	 * Draw the game state.
 	 */
@@ -107,10 +95,10 @@ public class PlayFish extends GFX {
 		int th = getTileH();
 
 		// Draw the ocean (not the whole screen).
-		g.setColor(OCEAN_COLOR);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, tw * world.getWidth(), th * world.getHeight());
 		// Draw a grid to better picture how the game works.
-		g.setColor(GRID_COLOR);
+		g.setColor(Color.black);
 		for (int x = 0; x < world.getWidth(); x++) {
 			for (int y = 0; y < world.getHeight(); y++) {
 				g.drawRect(x * tw, y * th, tw, th);
@@ -121,21 +109,13 @@ public class PlayFish extends GFX {
 		for (WorldObject wo : world.viewItems()) {
 			// Draw it with a 1x1 graphical world, with the center right in the middle of the tile.
 			// I fiddled with this translate to get pixel-perfect. Maybe there's a nicer way, but it works for now.
-
 			Graphics2D forWo = (Graphics2D) g.create();
 			forWo.translate((int) ((wo.getX() + 0.5) * tw) + 1, (int) ((wo.getY() + 0.5) * th) + 1);
 			forWo.scale(tw, th);
 			wo.draw(forWo);
 			forWo.dispose();
 		}
-		
-		/*IntPoint hover = mouseToGame(this.getMouseLocation());
-		if (hover != null) {
-			g.setColor(new Color(0,1,0,0.5f));
-			g.fillRect(hover.x * tw, hover.y * th, tw, th);
-		}*/
 	}
-	
 	/**
 	 * Convert Mouse coordinates to Grid coordinates.
 	 * @param mouse maybe a Mouse location (or null).
@@ -153,7 +133,6 @@ public class PlayFish extends GFX {
 		}
 		return null;
 	}
-
 	/**
 	 * We separate our "PlayFish" game logic update here.
 	 * @param secondsSinceLastUpdate - my GFX code can tell us how long it is between each update, but we don't actually care here.
@@ -175,10 +154,7 @@ public class PlayFish extends GFX {
 		}
 		
 		// Update the text in the TextBox.
-		this.gameState.setString(
-				/*"Step #: " + game.stepsTaken + 
-				" ... Fish Left: " + game.missingFishLeft() +*/
-				"Score: "+ game.score);
+		this.gameState.setString("Score: "+ game.score);
 
 		// Read the state of the keyboard:
 		boolean up = this.processKey(KeyEvent.VK_W) || this.processKey(KeyEvent.VK_UP);
@@ -188,39 +164,36 @@ public class PlayFish extends GFX {
 		boolean skip = this.processKey(KeyEvent.VK_SPACE);
 
 		// Move the player if we can:
-		boolean moving = true;
-		//this.game.player.moveRight();
-		
 		if (up) {
+			this.game.player.movingUp = true;
+			this.game.player.movingDown = false;
+			this.game.player.movingRight = false;
+			this.game.player.movingLeft = false;
 			this.game.player.moveUp();
 		} else if (down) {
-				this.game.player.moveDown();
-			
-		} else if (left) {
-				this.game.player.moveLeft();
-			
+			this.game.player.movingUp = false;
+			this.game.player.movingDown = true;
+			this.game.player.movingRight = false;
+			this.game.player.movingLeft = false;
+			this.game.player.moveDown();
 		} else if (right) {
-				this.game.player.moveRight();
+			this.game.player.movingUp = false;
+			this.game.player.movingDown = false;
+			this.game.player.movingRight = true;
+			this.game.player.movingLeft = false;
+			this.game.player.moveRight();
+		} else if (left) {
+			this.game.player.movingUp = false;
+			this.game.player.movingDown = false;
+			this.game.player.movingRight = false;
+			this.game.player.movingLeft = true;
+			this.game.player.moveLeft();
 		}
-		
-		
 		
 		IntPoint click = mouseToGame(this.processClick());
 		
-		// Only advance the game if the player presses something!
-		//if (skip || moved || click != null) {
-			/*if (click != null) {
-				this.game.click(click.x, click.y);
-			}*/
-			// Update game logic!
-		//boolean autoMove = true;
-		//while (autoMove) {
 		this.game.step();
-		//}
-			// Update message at the top!
-		
 	}
-
 	/**
 	 * Create and start the game!
 	 * @param args - not run from the command line so no args are used.

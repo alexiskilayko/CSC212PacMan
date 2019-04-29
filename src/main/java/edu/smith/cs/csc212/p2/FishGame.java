@@ -59,8 +59,6 @@ public class FishGame {
 	 * A reference to a random object, so we can randomize placement of objects in this world.
 	 */
 	private Random rand = ThreadLocalRandom.current();
-
-	
 	/**
 	 * Create a FishGame of a particular size.
 	 * @param w how wide is the grid?
@@ -90,16 +88,16 @@ public class FishGame {
 		// Generate some pellets.
 		// Keep track of how many there are.
 		numPellets = 0;
-				for (int x=0; x<w; x++) {
-					for (int y=0; y<h; y++) {
-						if (world.find(x, y).size()==0) {
-							FishFood pellet = new FishFood(world);
-							pellet.setPosition(x, y);
-							numPellets++;
-							world.register(pellet);
-						}
-					}
+		for (int x=0; x<w; x++) {
+			for (int y=0; y<h; y++) {
+				if (world.find(x, y).size()==0) {
+					FishFood pellet = new FishFood(world);
+					pellet.setPosition(x, y);
+					numPellets++;
+					world.register(pellet);
 				}
+			}
+		}
 		
 		// Make the number of lives.
 		lives = new ArrayList<>();
@@ -110,7 +108,6 @@ public class FishGame {
 			world.register(life);
 		}
 	}
-	
 	/**
 	 * This method is how the PlayFish app tells whether we're done.
 	 * @return true if the player has won (or maybe lost?).
@@ -124,19 +121,16 @@ public class FishGame {
 			return false;
 		}
 	}
-
 	/**
 	 * Update positions of everything (the user has just pressed a button).
 	 */
 	public void step() {
 		// Keep track of how long the game has run.
 		this.stepsTaken += 1;
-				
 		// These are all the objects in the world in the same cell as the player.
 		List<WorldObject> playerOverlap = this.player.findSameCell();
 		// The player is there, too, let's skip them.
 		playerOverlap.remove(this.player);
-		
 		// If we find an object...
 		for (WorldObject wo : playerOverlap) {
 			if (wo instanceof FishFood) {
@@ -162,5 +156,4 @@ public class FishGame {
 		}
 		world.stepAll();
 	}
-
 }
