@@ -149,8 +149,10 @@ public class FishGame {
 			}
 			if (wo instanceof Snail) {
 				if (!this.player.isInvincible()) {
-					world.remove(lives.remove(0));
-					player.setPosition(13,20);
+					if (lives.size() > 0) {
+						world.remove(lives.remove(0));
+						player.setPosition(13,20);
+					}
 				}
 				else if (this.player.isInvincible()) {
 					world.remove(wo);
