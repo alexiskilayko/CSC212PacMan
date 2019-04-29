@@ -190,16 +190,6 @@ public class World {
 			}
 		}
 	}
-
-	/**
-	 * Insert a new FallingRock into the world at random.
-	 * @return the FallingRock.
-	 */
-	/*public FallingRock insertFallingRockRandomly() {
-		FallingRock r = new FallingRock(this);
-		insertRandomly(r);
-		return r;
-	}*/
 	
 	/**
 	 * Insert a new Fish into the world at random of a specific color.
@@ -211,16 +201,6 @@ public class World {
 		insertRandomly(f);
 		return f;
 	}
-	
-	/**
-	 * Insert a fish home into the world at a random position.
-	 * @return the fish home.
-	 */
-	/*public FishHome insertFishHome() {
-		FishHome home = new FishHome(this);
-		insertRandomly(home);
-		return home;
-	}*/
 	
 	/**
 	 * Insert a new Snail at random into the world.

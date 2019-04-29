@@ -41,9 +41,6 @@ public class FishGame {
 	 * Score!
 	 */
 	int score;
-	/*/**
-	 * This is the number of rocks that we want to generate.
-	public static final int NUM_ROCKS = 20;*/
 	/**
 	 * This is the number of lives PacMan has left
 	 */
@@ -69,53 +66,27 @@ public class FishGame {
 	 */
 	public FishGame(int w, int h) {
 		world = new World(w, h);
-		
-		/*missing = new ArrayList<Fish>();
-		found = new ArrayList<Fish>();
-		atHome = new ArrayList<Fish>(); // Instantiate a list of fish that have returned home.*/
 				
-		// Generate some normal rocks.
-		//for (int i=0; i<NUM_ROCKS/2; i++) {
-			world.insertRockRandomly();
-		//}
+		List ghosts = new ArrayList<Snail>();
 		
-		
-		// (lab) Make the snail!
-		/*for (int i=0; i<numGhosts; i++) {
-			world.insertSnailRandomly();
-		}*/
-				
-		// Make the player out of the 0th fish color.
+		world.insertRockRandomly();
+
 		player = new Fish(0, world);
-		// Start the player at "home".
 		player.setPosition(13,20);
 		player.markAsPlayer();
 		world.register(player);
 		
-		// Generate fish of all the colors but the first into the "missing" List.
 		for (int ft = 0; ft < Snail.COLORS.length; ft++) {
 			Snail ghost = world.insertSnailRandomly(ft);
+			ghosts.add(ghost);
 		}
 		
-		/*
-		 * //Check whether PacMan is dead
-		while (this.gameOver()!=true) {
-			if (player.isDead()) {
-				NUM_LIVES -= 1;
-				continue;
-			}
-			else if (!player.isDead()) {
-				continue;
-			}
-		}*/
-		
-		// Generate pieces of fish food at random places.
 		for (int i=0; i<numPowerPellets; i++) {
 			world.insertFruitRandomly();
 		}
 		
 		// Generate some pellets.
-		//Keep track of how many there are.
+		// Keep track of how many there are.
 		numPellets = 0;
 				for (int x=0; x<w; x++) {
 					for (int y=0; y<h; y++)
@@ -126,7 +97,8 @@ public class FishGame {
 							world.register(pellet);
 						}
 				}
-		 //Make the number of lives
+		
+		// Make the number of lives
 		lives = new ArrayList<>();
 		 for (int i=0;i<numLives;i++) {
 			Fish life = new Fish(0,world);
@@ -170,12 +142,7 @@ public class FishGame {
 				world.remove(wo);
 			}
 			if (wo instanceof PacFruit) {
-				//numPowerPellets--;
 				this.player.invincible = true;
-				/*long time = System.nanoTime();
-				if (time == 5) {
-					this.player.invincible = false;
-				}*/
 			}
 			if (wo instanceof Snail) {
 				if (!this.player.invincible) {
@@ -186,84 +153,8 @@ public class FishGame {
 					score += 100;
 				}
 			}
-			// If we find a fish...
-			// A fish is missing if it's in our missing list.
-			/*if (missing.contains(wo)) {
-				// Remove this fish from the missing list.
-				missing.remove(wo);
-				
-				// Remove from world.
-				// (lab): add to found instead! (So we see objectsFollow work!)
-				Fish fish = (Fish)wo;
-				found.add(fish);
-				
-				// Increase score when you find a fish!
-				score += fish.points;
-			// If we find food, score increases and remove from world.
-			}*/ 
-			// If we find the fish home, return our following fish and remove them from world.
-			/* else if (wo instanceof FishHome) {
-				for (Fish f : found) {
-					atHome.add(f);
-				}
-				for (Fish f : atHome) {
-					found.remove(f);
-					world.remove(f);
-				} 
-			}*/
-		} 
-		
-		// If wandering fish find the fish food, remove food from world. Score does not increase.
-		/*for (Fish f : missing) {
-			// Find the objects that overlap with wandering fish.
-			List<WorldObject> fishOverlap = f.findSameCell();
-			// Exclude the player fish.
-			fishOverlap.remove(this.player);
-			for (WorldObject wo : fishOverlap) {
-				if (wo instanceof FishFood) {
-					world.remove(wo);
-				}
-			}
-		}*/
-									 
-		// Make sure missing fish *do* something.
-		/*wanderMissingFish();
-		// When fish get added to "found" they will follow the player around.
-		World.objectsFollow(player, found);*/
-		// Step any world-objects that run themselves.
+		}
 		world.stepAll();
 	}
-		
-	/**
-	 * Call moveRandomly() on all of the missing fish to make them seem alive.
-	 */
-	/*private void wanderMissingFish() {
-		Random rand = ThreadLocalRandom.current();
-		for (Fish lost : missing) {
-			// 30% of the time, lost fish move randomly.
-			if ((lost.fastScared == false) && (rand.nextDouble() < 0.3)) {
-				lost.moveRandomly();
-			// 80% of the time, lost fish move randomly.
-			} else if ((lost.fastScared == true) && (rand.nextDouble() < 0.8)) {
-				lost.moveRandomly();
-			}
-		}
-	}*/
 
-	/**
-	 * This gets a click on the grid. We want it to destroy rocks that ruin the game.
-	 * @param x - the x-tile.
-	 * @param y - the y-tile.
-	 */
-	/*public void click(int x, int y) {
-		System.out.println("Clicked on: "+x+","+y+ " world.canSwim(player,...)="+world.canSwim(player, x, y));
-		List<WorldObject> atPoint = world.find(x, y);
-		// If there is a rock at the point where the user clicks, remove.
-		for (WorldObject point : atPoint) {
-			if (point.isRock() == true) { 
-				point.remove();
-			}
-		}
-	}*/
-	
 }

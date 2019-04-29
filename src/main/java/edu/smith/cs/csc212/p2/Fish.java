@@ -20,23 +20,6 @@ import javax.imageio.ImageIO;
  */
 public class Fish extends WorldObject {
 	/**
-	 * A fish is only special because of its color now!
-	 */
-	/*public static Color[] COLORS = {
-			Color.red,
-			Color.green,
-			Color.green,
-			Color.green,
-			Color.yellow,
-			Color.cyan
-			// Add more colors.
-			// Maybe make a special fish that is more points?
-	};*/
-	/**
-	 * This is an index into the {@link #COLORS} array.
-	 */
-	//int color;
-	/**
 	 * This is the number of points a fish is worth.
 	 */
 	int points;
@@ -49,10 +32,6 @@ public class Fish extends WorldObject {
 	
 	boolean mouthOpen = true;
 	/**
-	 * Whether or not the fish gets scared fast.
-	 */
-	//public boolean fastScared;
-	/**
 	 * Random
 	 */
     Random random = new Random();
@@ -64,12 +43,6 @@ public class Fish extends WorldObject {
 		this.player = true;
 	}
 	
-	/*/**
-	 * If PacMan eats power pellet, make him invincible
-	public boolean isInvincible() {
-		return true;
-	}*/
-	
 	/**
 	 * A Fish knows what World it belongs to, because all WorldObjects do.
 	 * @param color Color by number.
@@ -77,27 +50,7 @@ public class Fish extends WorldObject {
 	 */
 	public Fish(int color, World world) {
 		super(world);
-		/*this.color = color;
-		// Designate different point values for different colors.
-		if ((this.color == 1) || (this.color == 2) || (this.color == 3)) {
-			this.points = 10;
-		} else if ((this.color == 4) || (this.color == 5)) {
-			this.points = 20;
-		} else if (this.color == 6) {
-			this.points = 30;
-		} 
-		// Randomize whether or not the fish is fastScared.
-		this.fastScared = random.nextBoolean();*/
 	}
-	
-	/**
-	 * What actual color is this fish? We store an index, so get it here.
-	 * @return the Color object from our array.
-	 */
-	/*public Color getColor() {
-		return COLORS[this.color];
-	}*/
-	
 	/**
 	 * Animate our fish by facing left and then right over time.
 	 */
@@ -117,14 +70,6 @@ public class Fish extends WorldObject {
 		Shape circle = new Ellipse2D.Double(-0.5, -0.5, 1.0, 1.0);
 		Shape arc1 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 45, 180, Arc2D.OPEN);
 		Shape arc2 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 115, 180, Arc2D.OPEN);
-
-		/*Shape body = new Ellipse2D.Double(-.40, -.2, .8, .4);
-		Shape tail = new Ellipse2D.Double(+.2, -.3, .2, .6);
-		Shape eye = new Ellipse2D.Double(-.25, -.1, .1, .1);
-		
-		Color color = getColor();
-		Color tailColor = color.darker();*/
-
 		
 		Graphics2D flipped = (Graphics2D) g.create();
 		if (dt < 50) {
@@ -137,7 +82,6 @@ public class Fish extends WorldObject {
 			g.fill(arc2);
 		} else {
 			g.fill(circle);
-			//g.fill(arc2);
 		}
 		
 		/*if (this.player) {
