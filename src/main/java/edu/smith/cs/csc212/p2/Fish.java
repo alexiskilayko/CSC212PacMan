@@ -64,6 +64,12 @@ public class Fish extends WorldObject {
 		this.player = true;
 	}
 	
+	/*/**
+	 * If PacMan eats power pellet, make him invincible
+	public boolean isInvincible() {
+		return true;
+	}*/
+	
 	/**
 	 * A Fish knows what World it belongs to, because all WorldObjects do.
 	 * @param color Color by number.
@@ -140,9 +146,15 @@ public class Fish extends WorldObject {
 		}*/
 		
 		/*if (this.player && this.invincible) {
+		if (this.player && this.invincible) {
 			flipped.setColor(Color.blue);
 			flipped.fill(circle);
-		}*/
+		}
+		}
+		else {
+			flipped.setColor(Color.yellow);
+			flipped.fill(circle);
+		}
 
 		// Draw the fish of size (1x1, roughly, at 0,0).
 		/*flipped.setColor(color);
