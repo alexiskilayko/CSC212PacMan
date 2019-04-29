@@ -28,7 +28,7 @@ public class Fish extends WorldObject {
 	 */	
 	boolean player = false;
 	
-	boolean invincible = false;
+	private int invincible = 0;
 	
 	boolean mouthOpen = true;
 	
@@ -89,6 +89,7 @@ public class Fish extends WorldObject {
 	}
 	@Override
 	public void step() {
+		invincible -- ;
 		mouthOpen = !mouthOpen;
 		if (movingLeft) {
 			if (!moveLeft()) {
@@ -107,5 +108,11 @@ public class Fish extends WorldObject {
 				movingDown = false;
 			}
 		}
+	}
+	boolean isInvincible() {
+		return invincible > 0;
+	}
+	void setInvincible() {
+		this.invincible = 20;
 	}
 }

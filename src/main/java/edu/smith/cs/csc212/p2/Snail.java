@@ -15,7 +15,6 @@ import java.util.Random;
  * @author jfoley
  */
 public class Snail extends WorldObject {
-	
 	/**
 	 * This is the color of the Snail's body.
 	 */
@@ -35,10 +34,6 @@ public class Snail extends WorldObject {
 	 */
 	public Color eyeColor = Color.black;
 	/**
-	 * Does the snail have its eyes open?
-	 */
-	public boolean eyesOpen = false;
-	/**
 	 * Is the snail going to the left?
 	 */
 	public boolean movingLeft = false;
@@ -52,7 +47,6 @@ public class Snail extends WorldObject {
 	public boolean frozen = false;
 	
     Random random = new Random();
-	
 	/**
 	 * Create a new Snail in a part of this world.
 	 * @param world - the world where the snail moves/lives.
@@ -62,7 +56,6 @@ public class Snail extends WorldObject {
 		this.color = color;
 		this.direction = random.nextInt(3);
 	}
-
 	/**
 	 * What actual color is this fish? We store an index, so get it here.
 	 * @return the Color object from our array.
@@ -70,7 +63,6 @@ public class Snail extends WorldObject {
 	public Color getColor() {
 		return COLORS[this.color];
 	}
-	
 	/**
 	 * Polishing up my Snail draw method...
 	 * This is kind of a mess, but that's graphics for you.
@@ -106,7 +98,6 @@ public class Snail extends WorldObject {
 			g.fill(leg2);
 			g.fill(leg3);
 		}
-
 		g.fill(eyeWhiteL);
 		g.fill(eyeWhiteR);
 		g.setColor(Color.white);
@@ -118,7 +109,11 @@ public class Snail extends WorldObject {
 		g.setColor(eyeColor);
 		g.fill(eyePupilR);
 	}
-
+	
+	public void pickNewDirection() {
+		direction = random.nextInt(4);
+	}
+	
 	/**
 	 * Move the snail left until it hits an obstacle. 
 	 * Then move it right until it hits an obstacle.
@@ -130,25 +125,25 @@ public class Snail extends WorldObject {
 			movingLeft = true;
 			if (!moveLeft()) {
 				movingLeft = false;
-				direction = random.nextInt(3);
+				pickNewDirection();
 			}
 		} else if (direction == 1) {
 			movingRight = true;
 			if (!moveRight()) {
 				movingRight = false;
-				direction = random.nextInt(3);
+				pickNewDirection();
 			}
 		} else if (direction == 2) {
 			movingUp = true;
 			if (!moveUp()) {
 				movingUp = false;
-				direction = random.nextInt(3);
+				pickNewDirection();
 			}
 		} else if (direction == 3) {
 			movingDown = true;
 			if (!moveDown()) {
 				movingDown = false;
-				direction = random.nextInt(3);
+				pickNewDirection();
 			}
 		}
 	}

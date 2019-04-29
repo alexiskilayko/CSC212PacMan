@@ -19,11 +19,11 @@ public class PlayFish extends GFX {
 	/**
 	 * Game size (visual). Try changing this to 600.
 	 */
-	public static int VISUAL_GRID_SIZE = 500;
+	public static int VISUAL_GRID_SIZE = 560;
 	/**
 	 * Game size (logical).
 	 */
-	public static int LOGICAL_GRID_SIZE = 27;
+	public static int LOGICAL_GRID_SIZE = 28;
 	/**
 	 * The words appear in the top part of the screen.
 	 */
@@ -133,6 +133,8 @@ public class PlayFish extends GFX {
 		}
 		return null;
 	}
+	
+	int delay = 10;
 	/**
 	 * We separate our "PlayFish" game logic update here.
 	 * @param secondsSinceLastUpdate - my GFX code can tell us how long it is between each update, but we don't actually care here.
@@ -163,36 +165,34 @@ public class PlayFish extends GFX {
 		boolean right = this.processKey(KeyEvent.VK_D) || this.processKey(KeyEvent.VK_RIGHT);
 		boolean skip = this.processKey(KeyEvent.VK_SPACE);
 
-		// Move the player if we can:
 		if (up) {
 			this.game.player.movingUp = true;
 			this.game.player.movingDown = false;
 			this.game.player.movingRight = false;
 			this.game.player.movingLeft = false;
-			this.game.player.moveUp();
 		} else if (down) {
 			this.game.player.movingUp = false;
 			this.game.player.movingDown = true;
 			this.game.player.movingRight = false;
 			this.game.player.movingLeft = false;
-			this.game.player.moveDown();
 		} else if (right) {
 			this.game.player.movingUp = false;
 			this.game.player.movingDown = false;
 			this.game.player.movingRight = true;
 			this.game.player.movingLeft = false;
-			this.game.player.moveRight();
 		} else if (left) {
 			this.game.player.movingUp = false;
 			this.game.player.movingDown = false;
 			this.game.player.movingRight = false;
 			this.game.player.movingLeft = true;
-			this.game.player.moveLeft();
 		}
 		
-		IntPoint click = mouseToGame(this.processClick());
+		delay --;
 		
-		this.game.step();
+		if (delay == 0) {		
+			this.game.step();
+			delay = 8;
+		}
 	}
 	/**
 	 * Create and start the game!

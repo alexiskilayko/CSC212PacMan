@@ -69,7 +69,16 @@ public class FishGame {
 				
 		livingGhosts = new ArrayList<Snail>();
 		
-		world.insertRockRandomly();
+		// Make the number of lives.
+		lives = new ArrayList<>();
+		 for (int i=0;i<numLives;i++) {
+			Fish life = new Fish(0,world);
+			life.setPosition(i,0);
+			lives.add(life);
+			world.register(life);
+		}
+		
+		world.insertPacmanBoard();
 
 		player = new Fish(0, world);
 		player.setPosition(13,20);
@@ -99,14 +108,8 @@ public class FishGame {
 			}
 		}
 		
-		// Make the number of lives.
-		lives = new ArrayList<>();
-		 for (int i=0;i<numLives;i++) {
-			Fish life = new Fish(0,world);
-			life.setPosition(i,0);
-			lives.add(life);
-			world.register(life);
-		}
+		
+	
 	}
 	/**
 	 * This method is how the PlayFish app tells whether we're done.
@@ -121,12 +124,8 @@ public class FishGame {
 			return false;
 		}
 	}
-	/**
-	 * Update positions of everything (the user has just pressed a button).
-	 */
-	public void step() {
-		// Keep track of how long the game has run.
-		this.stepsTaken += 1;
+	
+	public void checkPlayer() {
 		// These are all the objects in the world in the same cell as the player.
 		List<WorldObject> playerOverlap = this.player.findSameCell();
 		// The player is there, too, let's skip them.
@@ -138,22 +137,43 @@ public class FishGame {
 				numPellets--;
 				world.remove(wo);
 			}
-			if (wo instanceof PacFruit) {
-				this.player.invincible = true;
-				for (Snail ghost : livingGhosts) {
-					ghost.frozen = true;
+			if (wo instanceof Door) {
+				if (this.player.x == world.getWidth()-1) {
+					this.player.x = 1;
+				} else if (this.player.x == 0) {
+					this.player.x = world.getWidth()-1;
 				}
 			}
+			if (wo instanceof PacFruit) {
+				this.player.setInvincible();
+			}
 			if (wo instanceof Snail) {
-				if (!this.player.invincible) {
+				if (!this.player.isInvincible()) {
 					world.remove(lives.remove(0));
 				}
-				else if (this.player.invincible) {
+				else if (this.player.isInvincible()) {
 					world.remove(wo);
 					score += 100;
 				}
 			}
 		}
+	}
+	/**
+	 * Update positions of everything (the user has just pressed a button).
+	 */
+	public void step() {
+		for (Snail ghost : livingGhosts) {
+			ghost.frozen = this.player.isInvincible();
+		}
+		
+		// Keep track of how long the game has run.
+		this.stepsTaken += 1;
+		
+		// check after player moves if player dies
+		checkPlayer();
+		// let ghosts move
 		world.stepAll();
+		// check after ghosts move if player dies
+		checkPlayer();
 	}
 }

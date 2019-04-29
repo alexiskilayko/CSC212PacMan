@@ -83,7 +83,7 @@ public class World {
 	public void register(WorldObject item) {
 		// Print out what we've added, for our sanity.
 		System.out.println("register: "+item.getClass().getSimpleName());
-		items.add(item);
+		items.add(0, item);
 	}
 	
 	/**
@@ -144,7 +144,7 @@ public class World {
 	 * Insert a new Rock into the world at random.
 	 * @return the Rock.
 	 */
-	public void insertRockRandomly() {
+	public void insertPacmanBoard() {
 		String[] mapData = {
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"X............XX............X",
@@ -159,7 +159,7 @@ public class World {
 				"XXXXXX.XXXXX.XX.XXXXX.XXXXXX",
 				"XXXXXX.XX..........XX.XXXXXX",
 				"XXXXXX.XX.XXXXXXXX.XX.XXXXXX",
-				"..........XXXXXXXX..........",
+				"D.........XXXXXXXX.........D",
 				"XXXXXX.XX.XXXXXXXX.XX.XXXXXX",
 				"XXXXXX.XX..........XX.XXXXXX",
 				"XXXXXX.XX.XXXXXXXX.XX.XXXXXX",
@@ -181,7 +181,9 @@ public class World {
 				WorldObject wo = null;
 				if (row[x] == 'X') {
 					wo = new Rock(this);
-				} 
+				} else if (row[x] == 'D') {
+					wo = new Door(this);
+				}
 				if (wo == null) {
 					continue;
 				}
