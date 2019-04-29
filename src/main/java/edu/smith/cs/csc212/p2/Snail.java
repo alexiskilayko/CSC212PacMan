@@ -3,8 +3,10 @@ package edu.smith.cs.csc212.p2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.util.List;
 import java.util.Random;
 
@@ -17,11 +19,23 @@ public class Snail extends WorldObject {
 	/**
 	 * This is the color of the Snail's body.
 	 */
-	public Color bodyColor = Color.magenta;
+	public static Color[] COLORS = {
+	Color.red,
+	Color.cyan,
+	Color.magenta,
+	Color.orange 
+	};
+	// Add more colors.
+	// Maybe make a special fish that is more points?
+	/**
+	* This is an index into the {@link #COLORS} array.
+	*/
+	int color;
+	//public Color bodyColor = Color.magenta;
 	/**
 	 * This is the color of the snail shell.
 	 */
-	public Color shellColor = Color.white;
+	//public Color shellColor = Color.white;
 	/**
 	 * This is pupil of the snail color.
 	 */
@@ -41,10 +55,19 @@ public class Snail extends WorldObject {
 	 * Create a new Snail in a part of this world.
 	 * @param world - the world where the snail moves/lives.
 	 */
-	public Snail(World world) {
+	public Snail(int color, World world) {
 		super(world);
+		this.color = color;
 	}
 
+	/**
+	 * What actual color is this fish? We store an index, so get it here.
+	 * @return the Color object from our array.
+	 */
+	public Color getColor() {
+		return COLORS[this.color];
+	}
+	
 	/**
 	 * Polishing up my Snail draw method...
 	 * This is kind of a mess, but that's graphics for you.
@@ -52,29 +75,40 @@ public class Snail extends WorldObject {
 	@Override
 	public void draw(Graphics2D input) {
 		Graphics2D g = (Graphics2D) input.create();
-		g.scale(1.0/100.0, 1.0/100.0);
-		g.translate(-30, 0);
-		Shape body = new Rectangle2D.Double(0, 0, 40, 50);
-		Shape tentacleL = new Rectangle2D.Double(0, -20, 5, 20);
-		Shape eyeWhiteL = new Ellipse2D.Double(-4, -28, 12, 12);
-		Shape eyePupilL = new Ellipse2D.Double(-2, -26, 4, 4);
-		Shape tentacleR = new Rectangle2D.Double(35, -20, 5, 20);
-		Shape eyeWhiteR = new Ellipse2D.Double(35 - 4, -28, 12, 12);
-		Shape eyePupilR = new Ellipse2D.Double(35 + 2, -26 + 4, 4, 4);
+		/*g.scale(1.0/100.0, 1.0/100.0);
+		g.translate(-30, 0);*/
+		//Shape body = new Rectangle2D.Double(0, 0, 40, 50);
+		//Shape tentacleL = new Rectangle2D.Double(0, -20, 5, 20);
+		Shape eyeWhiteL = new Ellipse2D.Double(-0.4, -0.4, 0.2, 0.2);
+		Shape eyePupilL = new Ellipse2D.Double(-0.35, -0.35, 0.1, 0.1);
+		//Shape tentacleR = new Rectangle2D.Double(35, -20, 5, 20);
+		Shape eyeWhiteR = new Ellipse2D.Double(0.2, -0.4, 0.2, 0.2);
+		Shape eyePupilR = new Ellipse2D.Double(0.25, -0.35, 0.1, 0.1);
 		
-		bodyColor = Color.magenta;
+		//Shape body = new Ellipse2D.Double(-0.5, -0.5, 1.0, 1.0);
+		Shape head = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 0, 180, Arc2D.OPEN);
+		Shape body = new Rectangle2D.Double(-0.5, 0, 1.0, 0.3);
+		Shape leg1 = new Rectangle2D.Double(-0.5, 0.2, 0.25, 0.3);
+		Shape leg2 = new Rectangle2D.Double(-0.125, 0.2, 0.25, 0.3);
+		Shape leg3 = new Rectangle2D.Double(0.25, 0.2, 0.25, 0.3);
+		
+		Color bodyColor = getColor();
 		g.setColor(bodyColor);
+		g.fill(head);
 		g.fill(body);
-		g.fill(tentacleL);
+		g.fill(leg1);
+		g.fill(leg2);
+		g.fill(leg3);
+		//g.fillArc(50, 50, 100, 100, 0, 180); 
+
+		/*g.fill(body);
+		g.fill(leg1);
 
 		g.setColor(bodyColor);
-		g.fill(tentacleR);
+		g.fill(leg2);*/
 
-		if (!eyesOpen) {
-			g.setColor(bodyColor);
 			g.fill(eyeWhiteL);
 			g.fill(eyeWhiteR);
-		} else {
 			g.setColor(Color.white);
 			g.fill(eyeWhiteL);
 			g.setColor(eyeColor);
@@ -83,9 +117,8 @@ public class Snail extends WorldObject {
 			g.fill(eyeWhiteR);
 			g.setColor(eyeColor);
 			g.fill(eyePupilR);
-		}
 
-		Shape shell3 = new Ellipse2D.Double(45, 20, 10, 10);
+		/*Shape shell3 = new Ellipse2D.Double(45, 20, 10, 10);
 		Shape shell2 = new Ellipse2D.Double(35, 10, 30, 30);
 		Shape shell1 = new Ellipse2D.Double(25, 0, 50, 50);
 
@@ -96,7 +129,7 @@ public class Snail extends WorldObject {
 		g.setColor(Color.black);
 		g.draw(shell2);
 		g.setColor(Color.black);
-		g.draw(shell3);
+		g.draw(shell3);*/
 	}
 
 	/**
@@ -106,20 +139,23 @@ public class Snail extends WorldObject {
 	 */
 	@Override
 	public void step() {
-		int rand = random.nextInt(4);
+		this.moveRandomly();
+		/*int rand = random.nextInt(4);
 		
-		/*int x = this.getX();
-		int y = this.getY();*/
+		int x = this.getX();
+		int y = this.getY() + 1;
 		
 		if (rand == 0) {
-			this.moveUp();
+			while (x.isRock()) {
+				this.moveUp();
+			}
 		} else if (rand == 1) {
 			this.moveRight();
 		} else if (rand == 2) {
 			this.moveDown();
 		} else if (rand == 3) {
 			this.moveLeft();
-		}
+		}*/
 		/*eyesOpen = !eyesOpen;
 		if (movingLeft) {
 			if (!moveLeft()) {

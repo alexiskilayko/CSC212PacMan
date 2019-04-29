@@ -3,8 +3,14 @@ package edu.smith.cs.csc212.p2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * Most Fish behavior lives up in WorldObject (a Fish just looks special!).
@@ -40,6 +46,8 @@ public class Fish extends WorldObject {
 	boolean player = false;
 	
 	boolean invincible = false;
+	
+	boolean mouthOpen = true;
 	/**
 	 * Whether or not the fish gets scared fast.
 	 */
@@ -95,16 +103,20 @@ public class Fish extends WorldObject {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
-		dt += 1;
+		/*dt += 1;
 		if (dt > 100) {
 			dt = 0;
-		}
+		}*/
+				
 		Shape circle = new Ellipse2D.Double(-0.5, -0.5, 1.0, 1.0);
+		Shape arc1 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 45, 180, Arc2D.OPEN);
+		Shape arc2 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 115, 180, Arc2D.OPEN);
+
 		/*Shape body = new Ellipse2D.Double(-.40, -.2, .8, .4);
 		Shape tail = new Ellipse2D.Double(+.2, -.3, .2, .6);
-		Shape eye = new Ellipse2D.Double(-.25, -.1, .1, .1);*/
+		Shape eye = new Ellipse2D.Double(-.25, -.1, .1, .1);
 		
-		/*Color color = getColor();
+		Color color = getColor();
 		Color tailColor = color.darker();*/
 
 		
@@ -113,15 +125,24 @@ public class Fish extends WorldObject {
 			flipped.scale(-1, 1);
 		}
 		
-		if (this.player) {
-			flipped.setColor(Color.yellow);
-			flipped.fill(circle);
+		if (mouthOpen) {
+			g.setColor(Color.yellow);
+			g.fill(arc1);
+			g.fill(arc2);
+		} else {
+			g.fill(circle);
+			//g.fill(arc2);
 		}
 		
-		if (this.player && this.invincible) {
+		/*if (this.player) {
+			flipped.setColor(Color.yellow);
+			flipped.fill(circle);
+		}*/
+		
+		/*if (this.player && this.invincible) {
 			flipped.setColor(Color.blue);
 			flipped.fill(circle);
-		}
+		}*/
 
 		// Draw the fish of size (1x1, roughly, at 0,0).
 		/*flipped.setColor(color);
@@ -139,6 +160,7 @@ public class Fish extends WorldObject {
 	
 	@Override
 	public void step() {
+		//mouthOpen = !mouthOpen;
 		// Fish are controlled at a higher level; see FishGame.
 	}
 }

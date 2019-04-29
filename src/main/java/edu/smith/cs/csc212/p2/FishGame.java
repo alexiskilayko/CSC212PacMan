@@ -28,7 +28,7 @@ public class FishGame {
 	/**
 	 * Number of steps!
 	 */
-	//int stepsTaken;
+	int stepsTaken;
 	/**
 	 * Number of pellets left
 	 */
@@ -77,9 +77,9 @@ public class FishGame {
 		
 		
 		// (lab) Make the snail!
-		for (int i=0; i<numGhosts; i++) {
+		/*for (int i=0; i<numGhosts; i++) {
 			world.insertSnailRandomly();
-		}
+		}*/
 				
 		// Make the player out of the 0th fish color.
 		player = new Fish(0, world);
@@ -89,10 +89,9 @@ public class FishGame {
 		world.register(player);
 		
 		// Generate fish of all the colors but the first into the "missing" List.
-		/*for (int ft = 1; ft < Fish.COLORS.length; ft++) {
-			Fish friend = world.insertFishRandomly(ft);
-			missing.add(friend);
-		}*/
+		for (int ft = 0; ft < Snail.COLORS.length; ft++) {
+			Snail ghost = world.insertSnailRandomly(ft);
+		}
 		
 		/*
 		 * //Check whether PacMan is dead
@@ -125,15 +124,6 @@ public class FishGame {
 				}
 	}
 	
-	
-	/**
-	 * How we tell if the game is over: if missingFishLeft() == 0.
-	 * @return the size of the missing list.
-	 */
-	/*public int missingFishLeft() {
-		return missing.size();
-	}*/
-	
 	/**
 	 * This method is how the PlayFish app tells whether we're done.
 	 * @return true if the player has won (or maybe lost?).
@@ -153,7 +143,7 @@ public class FishGame {
 	 */
 	public void step() {
 		// Keep track of how long the game has run.
-		//this.stepsTaken += 1;
+		this.stepsTaken += 1;
 				
 		// These are all the objects in the world in the same cell as the player.
 		List<WorldObject> playerOverlap = this.player.findSameCell();

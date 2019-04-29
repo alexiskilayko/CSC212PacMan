@@ -226,8 +226,8 @@ public class World {
 	 * Insert a new Snail at random into the world.
 	 * @return the snail!
 	 */
-	public Snail insertSnailRandomly() {
-		Snail snail = new Snail(this);
+	public Snail insertSnailRandomly(int color) {
+		Snail snail = new Snail(color, this);
 		insertRandomly(snail);
 		return snail;
 	}
