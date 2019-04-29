@@ -125,10 +125,15 @@ public class PlayFish extends GFX {
 	public void update(double secondsSinceLastUpdate) {
 		// Handle game-over and restart.
 		if (game.gameOver()) {
+			World world = game.world;
 			if (game.numPellets<1) {
+				for (Snail ghost : game.livingGhosts) {
+					world.remove(ghost);
+				}
 				this.gameState.setString("You win! Click anywhere start again!");
 			}
 			else {
+				world.remove(this.game.player);
 				this.gameState.setString("You lost! Click anywhere start again!");
 			}
 			if (this.processClick() != null) {
