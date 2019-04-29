@@ -90,7 +90,7 @@ public class Snail extends WorldObject {
 			g.fill(leg2);
 			g.fill(leg3);
 		} else {
-			g.setColor(Color.blue);
+			g.setColor(Color.gray);
 			g.fill(head);
 			g.fill(body);
 			g.fill(leg1);
@@ -117,7 +117,7 @@ public class Snail extends WorldObject {
 	 */
 	@Override
 	public void step() {
-		this.moveRandomly();
+		//this.moveRandomly();
 	}
 
 }

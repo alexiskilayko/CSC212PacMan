@@ -53,6 +53,8 @@ public class FishGame {
 	 * This is the number of fish food that we want to generate.
 	 */
 	int numPowerPellets = 4;
+	
+	List<Snail> livingGhosts;
 	/**
 	 * A reference to a random object, so we can randomize placement of objects in this world.
 	 */
@@ -67,7 +69,7 @@ public class FishGame {
 	public FishGame(int w, int h) {
 		world = new World(w, h);
 				
-		List ghosts = new ArrayList<Snail>();
+		livingGhosts = new ArrayList<Snail>();
 		
 		world.insertRockRandomly();
 
@@ -78,7 +80,7 @@ public class FishGame {
 		
 		for (int ft = 0; ft < Snail.COLORS.length; ft++) {
 			Snail ghost = world.insertSnailRandomly(ft);
-			ghosts.add(ghost);
+			livingGhosts.add(ghost);
 		}
 		
 		for (int i=0; i<numPowerPellets; i++) {
@@ -89,16 +91,17 @@ public class FishGame {
 		// Keep track of how many there are.
 		numPellets = 0;
 				for (int x=0; x<w; x++) {
-					for (int y=0; y<h; y++)
-						if(world.find(x, y).size()==0) {
+					for (int y=0; y<h; y++) {
+						if (world.find(x, y).size()==0) {
 							FishFood pellet = new FishFood(world);
 							pellet.setPosition(x, y);
 							numPellets++;
 							world.register(pellet);
 						}
+					}
 				}
 		
-		// Make the number of lives
+		// Make the number of lives.
 		lives = new ArrayList<>();
 		 for (int i=0;i<numLives;i++) {
 			Fish life = new Fish(0,world);
@@ -143,6 +146,9 @@ public class FishGame {
 			}
 			if (wo instanceof PacFruit) {
 				this.player.invincible = true;
+				for (Snail ghost : livingGhosts) {
+					ghost.frozen = true;
+				}
 			}
 			if (wo instanceof Snail) {
 				if (!this.player.invincible) {

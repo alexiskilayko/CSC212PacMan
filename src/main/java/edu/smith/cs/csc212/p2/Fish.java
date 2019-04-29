@@ -69,7 +69,7 @@ public class Fish extends WorldObject {
 				
 		Shape circle = new Ellipse2D.Double(-0.5, -0.5, 1.0, 1.0);
 		Shape arc1 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 45, 180, Arc2D.OPEN);
-		Shape arc2 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 115, 180, Arc2D.OPEN);
+		Shape arc2 = new Arc2D.Double(-0.5, -0.5, 1.0, 1.0, 135, 180, Arc2D.OPEN);
 		
 		Graphics2D flipped = (Graphics2D) g.create();
 		if (dt < 50) {

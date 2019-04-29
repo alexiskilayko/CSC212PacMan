@@ -178,7 +178,7 @@ public class PlayFish extends GFX {
 		this.gameState.setString(
 				/*"Step #: " + game.stepsTaken + 
 				" ... Fish Left: " + game.missingFishLeft() +*/
-				" ... Score: "+ game.score);
+				"Score: "+ game.score);
 
 		// Read the state of the keyboard:
 		boolean up = this.processKey(KeyEvent.VK_W) || this.processKey(KeyEvent.VK_UP);
