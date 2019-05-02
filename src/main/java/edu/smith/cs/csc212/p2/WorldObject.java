@@ -12,7 +12,7 @@ import me.jjfoley.gfx.IntPoint;
 
 /**
  * A WorldObject is an abstract "item" in the game.
- * Fish, the player, rocks, and the Snail are all WorldObject subclasses.
+ * Pac-Man, walls, pellets, and the Ghosts are all WorldObject subclasses.
  * 
  * All movement is defined in this class.
  * 

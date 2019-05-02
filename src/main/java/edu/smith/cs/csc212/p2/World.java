@@ -23,7 +23,7 @@ public class World {
 	 */
 	private int height;
 	/**
-	 * A list of objects in the world (Fish, Snail, Rock, etc.).
+	 * A list of objects in the world (Pac-Man, Ghosts, Walls, etc.).
 	 */
 	private List<WorldObject> items;
 	/**
@@ -141,10 +141,10 @@ public class World {
 	}
 	
 	/**
-	 * Insert a new Rock into the world at random.
-	 * @return the Rock.
+	 * Insert the Pac-Man game board.
 	 */
 	public void insertPacmanBoard() {
+		// Hard-code the design of our game board.
 		String[] mapData = {
 				"XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 				"X............XX............X",
@@ -194,14 +194,8 @@ public class World {
 	}
 	
 	/**
-	 * Insert a new Fish into the world at random of a specific color.
-	 * @param color - the color of the fish.
-	 * @return the new fish itself.
-	 */
-	
-	/**
-	 * Insert a new Snail at random into the world.
-	 * @return the snail!
+	 * Insert a new Ghost at random into the world.
+	 * @return the ghost!
 	 */
 	public Snail insertSnailRandomly(int color) {
 		Snail snail = new Snail(color, this);
@@ -210,7 +204,7 @@ public class World {
 	}
 	
 	/**
-	 * Insert food into the world at a random position
+	 * Insert food into the world at a random position.
 	 * @return the food.
 	 */
 	public FishFood insertFruitRandomly() {
@@ -246,22 +240,18 @@ public class World {
 			if ((it instanceof Fish) && (whoIsAsking.isPlayer() == false)) {
 				return true;
 			}
-			
-			// The other fish shouldn't step "on" the player, the player should step on the other fish.
+			// Allow Pac-Man and ghosts to overlap.
 			if (it instanceof Snail) {
-				// This if-statement doesn't let anyone step on the Snail.
-				// The Snail(s) are not gonna take it.
 				return true;
 			}
 		}
-		
 		
 		// If we didn't see an obstacle, we can move there!
 		return true;
 	}
 	
 	/**
-	 * This is how objects may move. Only Snails do right now.
+	 * This is how objects may move. Only Ghosts do right now.
 	 */
 	public void stepAll() {
 		for (WorldObject it : this.items) {

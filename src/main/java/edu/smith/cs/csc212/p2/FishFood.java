@@ -3,7 +3,11 @@ package edu.smith.cs.csc212.p2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
-
+/**
+ * This class is for the pellets on our board.
+ * @author alexiskilayko
+ *
+ */
 public class FishFood extends WorldObject {
 
 	public FishFood(World world) {
@@ -12,7 +16,6 @@ public class FishFood extends WorldObject {
 
 	@Override
 	public void draw(Graphics2D g) {
-		// Challenge 2: I don't care what it looks like.
 		g.setColor(Color.white);
 		g.fill(new Ellipse2D.Double(-0.1, -0.1, 0.2, 0.2));
 	}

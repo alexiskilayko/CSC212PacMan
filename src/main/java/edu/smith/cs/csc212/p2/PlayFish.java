@@ -33,6 +33,10 @@ public class PlayFish extends GFX {
 	 */
 	public static int BORDER = 5;
 	/**
+	 * We determine the speed of the game with this number.
+	 */
+	int delay = 6;
+	/**
 	 * This is where the game logic lives.
 	 */
 	FishGame game;
@@ -116,7 +120,6 @@ public class PlayFish extends GFX {
 			forWo.dispose();
 		}
 	}
-	int delay = 6;
 	/**
 	 * We separate our "PlayFish" game logic update here.
 	 * @param secondsSinceLastUpdate - my GFX code can tell us how long it is between each update, but we don't actually care here.
@@ -152,6 +155,7 @@ public class PlayFish extends GFX {
 		boolean right = this.processKey(KeyEvent.VK_D) || this.processKey(KeyEvent.VK_RIGHT);
 		boolean skip = this.processKey(KeyEvent.VK_SPACE);
 		
+		// This code is ugly, but we determine what direction Pac-Man moves here.
 		if (up) {
 			this.game.player.movingUp = true;
 			this.game.player.movingDown = false;
@@ -174,8 +178,8 @@ public class PlayFish extends GFX {
 			this.game.player.movingLeft = true;
 		}
 		
+		// Decrement delay and move the characters on the board once it gets to 0, then reset.
 		delay --;
-		
 		if (delay == 0) {		
 			this.game.step();
 			delay = 6;

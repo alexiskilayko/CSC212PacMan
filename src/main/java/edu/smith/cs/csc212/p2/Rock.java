@@ -5,13 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * It would be awful nice to have multi-colored rocks at random.
- * This is not <a href="https://en.wikipedia.org/wiki/Dwayne_Johnson">the Rock</a>, but a Rock.
+ * This class is for our iconic blue walls.
  * @author jfoley
  */
 public class Rock extends WorldObject {
 	/**
-	 * Construct a Rock in our world.
+	 * Construct a wall in our world.
 	 * @param world - the grid world.
 	 */
 	public Rock(World world) {
@@ -19,7 +18,7 @@ public class Rock extends WorldObject {
 	}
 	
 	/**
-	 * Draw a rock!
+	 * Draw a wall!
 	 */
 	@Override
 	public void draw(Graphics2D g) {
@@ -31,7 +30,7 @@ public class Rock extends WorldObject {
 
 	@Override
 	public void step() {
-		// Rocks don't actually *do* anything.		
+		// Walls don't actually *do* anything.		
 	}
 
 }
